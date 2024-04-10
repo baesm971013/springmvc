@@ -35,6 +35,16 @@ public class MappingController {
         log.info("userId = {} , orderId = {}", userId, orderId);
         return "ok";
     }
+    @PostMapping(value = "/mapping-consume", consumes = "application/json")
+    public String mappingConsumes(){
+        log.info("mappingconsumes");
+        return "ok";
+    }
+    @PostMapping(value = "/mapping-produce", produces = "text/html")
+    public String mappingProduces(){
+        log.info("mapping produces");
+        return "ok";
+    }
 
 
 }
