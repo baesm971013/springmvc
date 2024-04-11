@@ -49,4 +49,14 @@ public class RequestParamController {
         // response body로 rest controooler 같은 효과를 준다
     }
 
+    @ResponseBody
+    @RequestMapping("/request-param-required")
+    public String requestParamRequired(
+            @RequestParam(required = true) String username,
+            @RequestParam(required = false) Integer age){
+        log.info("name = {} age = {}", username,age);
+        //Integer는 객체여서 null을 입력할수있음
+        return "hello v4 working";
+    }
+
 }
