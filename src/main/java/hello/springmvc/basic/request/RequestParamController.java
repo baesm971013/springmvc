@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 
@@ -19,4 +21,32 @@ public class RequestParamController {
         response.getWriter().write("ok");
 
     }
+
+    @ResponseBody
+    @RequestMapping("/request-param-v2")
+    public String requestParamV2(
+            @RequestParam("username") String memberName,
+            @RequestParam("age") int memberAge){
+        log.info("name = {} age = {}", memberName,memberAge);
+        return "ok";
+        // response body로 rest controooler 같은 효과를 준다
+    }
+
+    @ResponseBody
+    @RequestMapping("/request-param-v3")
+    public String requestParamV3(
+            @RequestParam String username,
+            @RequestParam int age){
+        log.info("name = {} age = {}", username,age);
+        return "okbary";
+        // response body로 rest controooler 같은 효과를 준다
+    }
+    @ResponseBody
+    @RequestMapping("/request-param-v4")
+    public String requestParamV4(String username,int age){
+        log.info("name = {} age = {}", username,age);
+        return "hello v4 working";
+        // response body로 rest controooler 같은 효과를 준다
+    }
+
 }
