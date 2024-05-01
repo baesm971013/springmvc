@@ -14,39 +14,36 @@ import java.io.IOException;
 @Controller
 public class RequestParamController {
     @RequestMapping("/request-param-v1")
-    public void requestParamV1(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void requestParam(HttpServletRequest request, HttpServletResponse response) throws IOException{
         String username = request.getParameter("username");
         int age = Integer.parseInt(request.getParameter("age"));
-        log.info("name = {} age = {}", username,age);
+        log.info("username = {}, age ={}",username, age);
         response.getWriter().write("ok");
-
     }
 
     @ResponseBody
-    @RequestMapping("/request-param-v2")
+    @RequestMapping("request-param-v2")
     public String requestParamV2(
-            @RequestParam("username") String memberName,
+            @RequestParam("username") String username,
             @RequestParam("age") int memberAge){
-        log.info("name = {} age = {}", memberName,memberAge);
-        return "ok";
-        // response body로 rest controooler 같은 효과를 준다
+        log.info("username = {}, age ={}",username, memberAge);
+        return "request param v2";
     }
 
     @ResponseBody
-    @RequestMapping("/request-param-v3")
+    @RequestMapping("request-param-v3")
     public String requestParamV3(
             @RequestParam String username,
             @RequestParam int age){
-        log.info("name = {} age = {}", username,age);
-        return "okbary";
-        // response body로 rest controooler 같은 효과를 준다
+        log.info("username = {}, age ={}",username, age);
+        return "request param v3";
     }
+
     @ResponseBody
     @RequestMapping("/request-param-v4")
-    public String requestParamV4(String username,int age){
-        log.info("name = {} age = {}", username,age);
-        return "hello v4 working";
-        // response body로 rest controooler 같은 효과를 준다
+    public String requestParamV4(String username, int age){
+        log.info("username = {}, age ={}",username, age);
+        return "request param v4";
     }
 
     @ResponseBody
@@ -54,9 +51,19 @@ public class RequestParamController {
     public String requestParamRequired(
             @RequestParam(required = true) String username,
             @RequestParam(required = false) Integer age){
-        log.info("name = {} age = {}", username,age);
-        //Integer는 객체여서 null을 입력할수있음
-        return "hello v4 working";
+        log.info("username = {}, age = {}",username,age);
+        return "param-required";
     }
+
+    @ResponseBody
+    @RequestMapping("/request-param-default")
+    public String test(
+            @RequestParam(required = true, defaultValue = "guest") String username,
+            @RequestParam(required = true, defaultValue = "-1") int age){
+        log.info("username = {}, age = {}",username,age);
+        return "param-required-default";
+    }
+
+
 
 }
