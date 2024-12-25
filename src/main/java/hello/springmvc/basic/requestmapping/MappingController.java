@@ -35,4 +35,16 @@ public class MappingController {
         log.info("order name : {}, order id :{}", userId, orderId);
         return "ok";
     }
+
+    @GetMapping(value = "/mapping-header", headers="mode=debug")
+    public String test3(){
+        log.info("header-test");
+        return "ok";
+    }
+
+    @PostMapping(value="/mapping-consume", consumes = "application/json")
+    public String consumeTest(){
+        log.info("only works in application json format");
+        return "ok";
+    }
 }
