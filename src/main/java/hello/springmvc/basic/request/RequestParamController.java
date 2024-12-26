@@ -1,9 +1,11 @@
 package hello.springmvc.basic.request;
 
+import hello.springmvc.basic.requestmapping.HelloData;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -72,6 +74,26 @@ public class RequestParamController {
     public String requestParamDefault(@RequestParam Map<String, Object> paramMap){
         log.info("username : {} age : {}", paramMap.get("username"), paramMap.get("age"));
         return "default-value ok ";
+    }
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(@RequestParam String username, @RequestParam int age){
+        HelloData helloData = new HelloData();
+        helloData.setUsername(username);
+        helloData.setAge(age);
+
+        System.out.println(helloData);
+        return "ok";
+
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttributeV2(@ModelAttribute HelloData helloData){
+        System.out.println(helloData.getUsername());
+        System.out.println(helloData.getAge());
+        return "ok";
+
     }
 
 
