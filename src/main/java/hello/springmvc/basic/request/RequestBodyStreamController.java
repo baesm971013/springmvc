@@ -5,9 +5,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,7 +43,14 @@ public class RequestBodyStreamController {
     public HttpEntity<String> test3(HttpEntity<String> httpEntity) throws IOException {
         String messageBody = httpEntity.getBody();
         log.info(messageBody);
-        return new HttpEntity<>("ok");
+        return new ResponseEntity<>("ok", HttpStatus.BAD_REQUEST);
+
+    }
+    @ResponseBody
+    @PostMapping("/request-body-string-v4")
+    public String test4(@RequestBody String messageBody) throws IOException {
+        log.info(messageBody);
+        return "ok";
 
     }
 
